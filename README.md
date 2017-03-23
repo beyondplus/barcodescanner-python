@@ -13,6 +13,6 @@ python barcodescanner.py
 
 
 # Contact Us
-If you had any problem, you can write the issue here https://github.com/beyondplus/developer-dashboard-chrome/issues. 
+If you had any problem, you can write the issue here https://github.com/beyondplus/barcodescanner-python/issues . 
 Email - sanpwintthu@hotmail.com
 Website - http://beyondplus.biz 
