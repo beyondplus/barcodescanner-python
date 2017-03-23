@@ -1,4 +1,4 @@
-# Barcodescanner Python
+# Barcodescanner Python and Mysql
 Barcode Scanner Hardware connect with python for POS Application
 
 # Installation
