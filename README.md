@@ -8,7 +8,7 @@ Barcode Scanner Hardware connect with python for POS Application
 * sudo pip install MySQL-python
 * sudo pip install PyMsgBox
 * sudo apt-get install python-tk
-* sudo pip install pillow
+* sudo apt-get install python-imaging-tk
 
 # Creating database
 * import pos.sql file to database
@@ -16,6 +16,8 @@ Barcode Scanner Hardware connect with python for POS Application
 # Run
 * python barcodescanner.py
 
+# Youbue
+* [https://youtu.be/eMCYVN9aEaw](https://youtu.be/eMCYVN9aEaw)
 
 # Contact Us
 If you had any problem, you can write the issue [here](https://github.com/beyondplus/barcodescanner-python/issues) . 

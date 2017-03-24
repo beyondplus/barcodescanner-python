@@ -5,43 +5,65 @@ import Tkinter as tk
 from PIL import ImageTk, Image
 #import urllib
 import tkMessageBox
-app_root = tk.Tk()
-top = tk.Tk()
+
+window = tk.Tk()
+window.title("Awasome POS Ticket System")
+window.geometry("300x300")
+menubar = tk.Menu(window)
+filemenu = tk.Menu(menubar, tearoff=0,background='white',foreground='white',activebackground='#004c99', activeforeground='white')
+filemenu.add_command(label="Exit", command=window.destroy)
+menubar.add_cascade(label="File", menu=filemenu)
+
+
 var = tk.StringVar()
 def helloCallBack():
     tkMessageBox.showinfo( "Hello Python", "Hello World")
 
 
 def callback(*args):
-    if len(var.get()) > 12:
-        inputStr = ""
-        inputStr += var.get()
-        query = "SELECT * FROM products where barcode='"+inputStr+"' and status=0"
-        conn = MySQLdb.connect( host="localhost",user="root",passwd="user123",db="pos",port=3306)
-        cur = conn.cursor()
-        try:
-            cur.execute(query)
-            if len(cur.fetchall()) == 1:
-                for row in cur.fetchall():
-                    status=row[2]
-                    print status
+    button_pressed=True
+    if len(var.get()) == 8:
+        if(len(var.get()) > 7):
+            inputStr = ""
+            inputStr = var.get()
+            query = "SELECT * FROM products where barcode='"+inputStr+"' and status=0"
+            conn = MySQLdb.connect( host="localhost",user="root",passwd="user123",db="pos",port=3306)
+            cur = conn.cursor()
+            try:
+                status = 1
+                # print inputStr
+                cur.execute(query)
+                if len(cur.fetchall()) == 1:
+                    for row in cur:
+                        status =row[2]
+                else:
+                    status = 1
+            finally:
+                if status == 1:
+                    pymsgbox.alert(text='Card is not valid!', title='Not Valid', button='OK')
                     #tkMessageBox.showinfo( "Not Valid", "Card is not valid!")
-            else :
-                tkMessageBox.showinfo( "Not Valid", "Card is not valid!")
-            status = 0
+                conn.close()
+                var.set("")
+        else:
             var.set("")
-        finally:
-            conn.close()
+            tkMessageBox.showinfo( "Not Valid", "Card is not valid!")
 
-L1 = tk.Label(top, text="User Name")
-L1.pack( side = tk.LEFT)
+title = tk.Label(window, text="Welcome to POS Ticket System")
+title.pack()
 
-E1 = tk.Entry(top, textvariable=var)
+L1 = tk.Label(window, text="Mouse cursor here!")
+L1.pack()
 
-E1.pack(side = tk.RIGHT)
+E1 = tk.Entry(window, textvariable=var)
+
+E1.pack()
 var.trace("w", callback)
-#B = tk.Button(top,text ="Hello",command=helloCallBack)
+#B = tk.Button(window,text ="Hello",command=helloCallBack)
 #B.pack()
 img = ImageTk.PhotoImage(Image.open("app.png"))
-imglabel = tk.Label(app_root, image=img).grid(row=1, column=1)
-top.mainloop()
+imglabel = tk.Label(window, image=img)
+imglabel.pack()
+
+window.config(bg='#2A2C2B', menu=menubar)
+window.configure(background='white')
+window.mainloop()
