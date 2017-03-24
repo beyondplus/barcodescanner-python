@@ -1,12 +1,13 @@
 import sys
 import MySQLdb
 import pymsgbox
-import Tkinter as tkinter
+import Tkinter as tk
+from PIL import ImageTk, Image
 #import urllib
 import tkMessageBox
-
-top = tkinter.Tk()
-var = tkinter.StringVar()
+app_root = tk.Tk()
+top = tk.Tk()
+var = tk.StringVar()
 def helloCallBack():
     tkMessageBox.showinfo( "Hello Python", "Hello World")
 
@@ -32,13 +33,15 @@ def callback(*args):
         finally:
             conn.close()
 
-L1 = tkinter.Label(top, text="User Name")
-L1.pack( side = tkinter.LEFT)
+L1 = tk.Label(top, text="User Name")
+L1.pack( side = tk.LEFT)
 
-E1 = tkinter.Entry(top, textvariable=var)
+E1 = tk.Entry(top, textvariable=var)
 
-E1.pack(side = tkinter.RIGHT)
+E1.pack(side = tk.RIGHT)
 var.trace("w", callback)
-B = tkinter.Button(top,text ="Hello",command=helloCallBack)
-B.pack()
+#B = tk.Button(top,text ="Hello",command=helloCallBack)
+#B.pack()
+img = ImageTk.PhotoImage(Image.open("app.png"))
+imglabel = tk.Label(app_root, image=img).grid(row=1, column=1)
 top.mainloop()
