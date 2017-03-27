@@ -1,10 +1,10 @@
 import sys
 import MySQLdb
-import pymsgbox
-import Tkinter as tk
-from PIL import ImageTk, Image
+#import pymsgbox
+import tkinter as tk
+from PIL import Image, ImageTk
 #import urllib
-import tkMessageBox
+import tkinter.messagebox
 
 window = tk.Tk()
 window.title("Awasome POS Ticket System")
@@ -14,17 +14,14 @@ filemenu = tk.Menu(menubar, tearoff=0,background='white',foreground='white',acti
 filemenu.add_command(label="Exit", command=window.destroy)
 menubar.add_cascade(label="File", menu=filemenu)
 
-
 var = tk.StringVar()
 def helloCallBack():
-    tkMessageBox.showinfo( "Hello Python", "Hello World")
+    tk.messagebox.showinfo( "Hello Python", "Hello World")
 
 
 def callback(*args):
-    button_pressed=True
     if len(var.get()) == 8:
         if(len(var.get()) > 7):
-            inputStr = ""
             inputStr = var.get()
             query = "SELECT * FROM products where barcode='"+inputStr+"' and status=0"
             conn = MySQLdb.connect( host="localhost",user="root",passwd="user123",db="pos",port=3306)
@@ -38,15 +35,14 @@ def callback(*args):
                         status =row[2]
                 else:
                     status = 1
-            finally:
                 if status == 1:
-                    pymsgbox.alert(text='Card is not valid!', title='Not Valid', button='OK')
-                    #tkMessageBox.showinfo( "Not Valid", "Card is not valid!")
+                    tk.messagebox.showinfo( "Not Valid", "Card is not valid!")
+            finally:
                 conn.close()
                 var.set("")
         else:
             var.set("")
-            tkMessageBox.showinfo( "Not Valid", "Card is not valid!")
+            tk.messagebox.showinfo( "Not Valid", "Card is not valid!")
 
 title = tk.Label(window, text="Welcome to POS Ticket System")
 title.pack()
